@@ -28,6 +28,8 @@ class MainMenuView(arcade.View):
         self.manager.add(self.levels_menu_button)
         self.manager.add(self.exit_button)
 
+        self.window.play_menu_music()
+
     def on_draw(self):
         self.clear()
         arcade.draw_texture_rect(self.background,
@@ -46,3 +48,5 @@ class MainMenuView(arcade.View):
 
     def _exit_game(self):
         arcade.close_window()
+
+
