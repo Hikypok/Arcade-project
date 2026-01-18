@@ -19,17 +19,31 @@ class LoginView(arcade.View):
         login_button.center_y = self.window.height // 2 - 70
         login_button.on_click = lambda event: self._try_login()
 
+        self.label_login = gui.UILabel(text="Представьтесь, товарищ участковый:", width=500, height=200, font_size=35)
+        self.label_login.center_x = self.window.width // 2 - 100
+        self.label_login.center_y = self.window.height // 2
+
         self.manager.add(self.input_field)
         self.manager.add(login_button)
+        self.manager.add(self.label_login)
+
+        self.music = arcade.Sound("sounds/login_menu_sound.mp3")
+        self.music_player = self.music.play(loop=True, volume=0.5)
 
     def _try_login(self):
         name = self.input_field.text.strip()
         if not name:
             return
 
+        if self.music_player:
+            self.music_player.pause()
+            self.music_player.delete()
+            self.music_player = None
+
         player_id = get_or_create_player(name)
         self.window.player_id = player_id
         self.window.player_name = name
+
         from main_menu_view import MainMenuView
         menu_view = MainMenuView()
         self.window.show_view(menu_view)
@@ -44,12 +58,7 @@ class LoginView(arcade.View):
                                  arcade.rect.XYWH(self.window.width // 2,
                                                   self.window.height // 2,
                                                   self.window.width, self.window.height))
-        arcade.draw_text("Представьтесь, товарищ участковый:",
-                         self.window.width // 2,
-                         self.window.height // 2 + 50,
-                         arcade.color.WHITE,
-                         font_size=35,
-                         anchor_x="center")
+
         self.manager.draw()
 
     def on_hide_view(self):
