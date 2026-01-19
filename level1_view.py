@@ -45,6 +45,7 @@ class Level1View(arcade.View):
 
         self.door = arcade.SpriteSolidColor(50, 60, arcade.color.BLACK)
         self.door.center_x, self.door.center_y = 650, 450
+        self.door.alpha = 0
         self.clue_sprites.append(self.door)
 
         self.player_list.append(self.sheriff)
@@ -261,3 +262,4 @@ class Level1View(arcade.View):
         from levels_menu_view import LevelsMenuView
         self.window.show_view(LevelsMenuView())
     
+
