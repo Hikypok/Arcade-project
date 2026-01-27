@@ -1,3 +1,4 @@
+# main_character.py
 import arcade
 
 
@@ -41,6 +42,3 @@ class SheriffBorya(arcade.Sprite):
             self.change_y = self.speed
         if down:
             self.change_y = -self.speed
-
-        self.center_x += self.change_x
-        self.center_y += self.change_y

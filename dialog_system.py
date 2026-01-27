@@ -1,3 +1,4 @@
+# dialog_system.py
 import arcade
 
 
@@ -12,7 +13,8 @@ class DialogueBox:
 
     def show(self, speaker, text, on_close=None):
         self.speaker = speaker
-        self.lines = self._split_text(text, max_width=self.window_width - 140)
+        max_width = self.window_width - 80
+        self.lines = self._split_text(text, max_width)
         self.visible = True
         self.on_close = on_close
 
@@ -36,32 +38,33 @@ class DialogueBox:
         if not self.visible:
             return
 
-        width = self.window_width - 2 * 50
+        width = self.window_width - 60
         height = 150
+        x = 50
+        y = 50
 
         arcade.draw_rect_filled(
-            arcade.rect.XYWH(500, 50, width, height),
+            arcade.rect.LBWH(x, y, width, height),
             color=arcade.color.GRAY_ASPARAGUS)
-
         arcade.draw_rect_outline(
-            arcade.rect.XYWH(500, 50, width, height),
+            arcade.rect.LBWH(x, y, width, height),
             color=arcade.color.WHITE,
             border_width=3)
 
         if self.speaker:
             arcade.draw_text(
                 f"{self.speaker}:",
-                120,
-                height - 50,
+                x + 20,
+                y + height - 40,
                 arcade.color.YELLOW,
                 16,
                 bold=True)
 
-        text_y = height - 70
+        text_y = y + height - 60
         for line in self.lines:
             arcade.draw_text(
                 line,
-                100,
+                x + 20,
                 text_y,
                 arcade.color.WHITE,
                 14)
@@ -69,8 +72,8 @@ class DialogueBox:
 
         arcade.draw_text(
             "[Нажмите SPACE, чтобы продолжить]",
-            350,
-            20,
+            x + width // 2 - 120,
+            y + 15,
             arcade.color.ASH_GREY,
             12)
 
@@ -78,3 +81,4 @@ class DialogueBox:
         self.visible = False
         if self.on_close:
             self.on_close()
+
