@@ -1,0 +1,17 @@
+.idea/
+*.iml
+.vscode/
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+ENV/
+build/
+dist/
+*.egg-info/
+*.exe
+*.zip
+.DS_Store
+Thumbs.db
